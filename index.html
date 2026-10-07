@@ -157,6 +157,32 @@ const now = new Date();
 document.getElementById("date").textContent =
   now.toLocaleDateString(undefined, {weekday:"long", month:"long", day:"numeric"});
 
+function dailyVerseIndex(date, verseCount) {
+  const localCalendarDay = Math.floor(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / 86400000
+  );
+  return localCalendarDay % verseCount;
+}
+
+async function showDailyVerse() {
+  try {
+    const response = await fetch("./verses.json");
+    if (!response.ok) return;
+
+    const verses = await response.json();
+    if (!Array.isArray(verses) || verses.length === 0) return;
+
+    const verse = verses[dailyVerseIndex(now, verses.length)];
+    if (!verse || typeof verse.text !== "string" || typeof verse.reference !== "string") return;
+
+    document.querySelector(".verse-text").textContent = `“${verse.text}”`;
+    document.querySelector(".verse-ref").textContent = verse.reference;
+  } catch {
+    // Keep the existing fallback verse when the local verse file is unavailable.
+  }
+}
+showDailyVerse();
+
 const dateKey = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
 let index = Number(localStorage.getItem("morningPromptIndex-" + dateKey));
 if (!Number.isInteger(index)) {
