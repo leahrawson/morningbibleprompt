@@ -210,10 +210,12 @@ if (startingPromptIndex === null) {
   localStorage.setItem(sharedPromptStorageKey, startingPromptIndex);
 }
 
-const promptIndices = Object.fromEntries(promptKeys.map(key => {
+const promptIndices = {};
+promptKeys.forEach(key => {
   const individualStorageKey = `${sharedPromptStorageKey}-${key}`;
-  return [key, storedPromptIndex(individualStorageKey) ?? startingPromptIndex];
-}));
+  const savedIndex = storedPromptIndex(individualStorageKey);
+  promptIndices[key] = savedIndex === null ? startingPromptIndex : savedIndex;
+});
 
 function showPrompt(key) {
   document.getElementById(key).textContent = prompts[promptIndices[key]][key];
@@ -289,7 +291,7 @@ function updateBreath(now){
   }else{
     text=`Exhale · ${Math.max(1,8-Math.floor(elapsed-6))}`;
   }
-  breathTexts.forEach(element => { element.textContent=text; });
+  Array.prototype.forEach.call(breathTexts, element => { element.textContent=text; });
   requestAnimationFrame(updateBreath);
 }
 if(!reducedMotion){requestAnimationFrame(updateBreath);}
