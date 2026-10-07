@@ -36,9 +36,10 @@ body::after{z-index:-1;height:44dvh;background:
   0%,100%{transform:scale(.92,.86);opacity:.62}
   42.857%{transform:scale(1.18,1.22);opacity:1}
 }
-.breath-cue{display:inline-flex;align-items:center;gap:8px;margin:2px 0 clamp(10px,1.8vh,22px);font:600 .65rem "Montserrat",Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);opacity:.78}.breath-cue-mobile{display:none}
+.breath-cue{display:inline-flex;align-items:center;gap:8px;margin:2px 0 clamp(10px,1.8vh,22px);font:600 .65rem "Montserrat",Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);opacity:.78}.breath-cue-mobile{display:none}.breath-cue-desktop{position:fixed;left:50%;bottom:clamp(70px,13dvh,130px);z-index:3;margin:0;translate:-50% 0;transform-origin:center;animation:cueBreath 14s ease-in-out infinite;text-shadow:0 1px 14px rgba(255,255,255,.92)}
 .breath-dot{width:7px;height:7px;border-radius:50%;background:rgba(205,139,102,.72);animation:breathDot 14s ease-in-out infinite}
 @keyframes breathDot{0%,100%{transform:scale(.72);opacity:.55}42.857%{transform:scale(1.35);opacity:1}}
+@keyframes cueBreath{0%,100%{transform:scale(.96);opacity:.68}42.857%{transform:scale(1.03);opacity:.9}}
 main{width:min(820px,calc(100% - 34px));min-height:100dvh;margin:0 auto;padding:clamp(28px,5vh,62px) 0 clamp(24px,5vh,60px);display:flex;flex-direction:column;position:relative;z-index:1}
 .mobile-sunrise{display:none}
 .top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding-bottom:clamp(10px,2vh,20px)}
